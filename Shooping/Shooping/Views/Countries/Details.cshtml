@@ -12,9 +12,9 @@
     <partial name="_CountryDetails"/>    
 </div>
 <div>
-    <a asp-action="AddState" asp-route-id="@Model?.Id" class="btn btn-outline-primary">Adicionar Departamento/Estado</a>
-    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-outline-warning">Editar País</a>
-    <a asp-action="Index" class="btn btn-outline-success">Regresar</a>
+    <a asp-action="AddState" asp-route-id="@Model?.Id" class="btn btn-outline-primary"><i class="bi bi-plus-circle"></i> Adicionar Departamento/Estado</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-outline-warning"><i class="bi bi-pencil-square"></i> Editar País</a>
+    <a asp-action="Index" class="btn btn-outline-success"><i class="bi bi-arrow-left-circle"></i> Regresar</a>
 </div>
 <hr />
 <div class="row">
@@ -47,9 +47,9 @@
                                     @Html.DisplayFor(modelItem => item.CitiesNumber)
                                 </td>
                                 <td>
-                                    <a asp-action="EditState" asp-route-id="@item.Id" class="btn btn-outline-warning">Editar</a>
-                                    <a asp-action="DetailsState" asp-route-id="@item.Id" class="btn btn-outline-info">Detalles</a>
-                                    <a asp-action="DeleteState" asp-route-id="@item.Id" class="btn btn-outline-danger">Borrar</a>
+                                    <a asp-action="EditState" asp-route-id="@item.Id" class="btn btn-outline-warning"><i class="bi bi-pencil-square"></i> Editar</a>
+                                    <a asp-action="DetailsState" asp-route-id="@item.Id" class="btn btn-outline-info"><i class="bi bi-layout-text-sidebar"></i> Detalles</a>
+                                    <a asp-action="DeleteState" asp-route-id="@item.Id" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Borrar</a>
                                 </td>
                             </tr>
                         }

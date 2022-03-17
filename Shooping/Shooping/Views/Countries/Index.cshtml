@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 
 <p>
-    <a asp-action="Create" class="btn btn-outline-primary">Crear Nuevo</a>
+    <a asp-action="Create" class="btn btn-outline-primary"><i class="bi bi-plus-circle"></i> Crear Nuevo</a>
 </p>
 
 <div class="row">
@@ -40,9 +40,9 @@
                                     @Html.DisplayFor(modelItem => item.StatesNumber)
                                 </td>
                                 <td>
-                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning">Editar</a>
-                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info">Detalles</a>
-                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Borrar</a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning"><i class="bi bi-pencil-square"></i> Editar</a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info"><i class="bi bi-layout-text-sidebar"></i> Detalles</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Borrar</a>
                                 </td>
                             </tr>
                         }
