@@ -23,6 +23,8 @@ namespace Shooping.Data
             await CheckRolesAsync();
             await CheckUserAsync("1010", "Santiago", "Acuña",
                 "snt-26@hotmail.com", "321 777 5042", "Calle Neas", UserType.Admin);
+            await CheckUserAsync("2020", "Peter", "Ete",
+                "peterete@yopmail.com", "311 523 1131", "Calle Monda", UserType.User);
         }
 
         private async Task<User> CheckUserAsync(
