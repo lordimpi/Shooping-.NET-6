@@ -10,6 +10,7 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<SeedDb>();
 builder.Services.AddScoped<IUserHelper, UserHelper>();
+builder.Services.AddScoped<ICombosHelper, CombosHelper>();
 
 builder.Services.AddIdentity<User, IdentityRole>(cfg =>
 {
