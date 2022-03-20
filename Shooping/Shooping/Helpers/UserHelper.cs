@@ -13,8 +13,7 @@ namespace Shooping.Helpers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<User> _signInManager;
 
-        public UserHelper(DataContext context, UserManager<User> userManager, 
-            RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager)
+        public UserHelper(DataContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager)
         {
             _context = context;
             _userManager = userManager;
@@ -40,15 +39,17 @@ namespace Shooping.Helpers
                 PhoneNumber = model.PhoneNumber,
                 City = await _context.Cities.FindAsync(model.CityId),
                 UserName = model.UserName,
-                UserType = model.UserType,
+                UserType = model.UserType
             };
-            IdentityResult reult = await _userManager.CreateAsync(user, model.Password);
-            if (reult != IdentityResult.Success)
+
+            IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+            if (result != IdentityResult.Success)
             {
                 return null;
             }
+
             User newUser = await GetUserAsync(model.UserName);
-            await AddUserToRoleAsync(newUser, model.UserType.ToString());
+            await AddUserToRoleAsync(newUser, user.UserType.ToString());
             return newUser;
         }
 
@@ -59,8 +60,8 @@ namespace Shooping.Helpers
 
         public async Task CheckRoleAsync(string roleName)
         {
-            bool roleExist = await _roleManager.RoleExistsAsync(roleName);
-            if (!roleExist)
+            bool roleExists = await _roleManager.RoleExistsAsync(roleName);
+            if (!roleExists)
             {
                 await _roleManager.CreateAsync(new IdentityRole
                 {
@@ -71,9 +72,9 @@ namespace Shooping.Helpers
 
         public async Task<User> GetUserAsync(string email)
         {
-            return await _userManager.Users
+            return await _context.Users
                 .Include(u => u.City)
-                .FirstOrDefaultAsync(u => u.Id == email);
+                .FirstOrDefaultAsync(u => u.Email == email);
         }
 
         public async Task<bool> IsUserInRoleAsync(User user, string roleName)
@@ -83,8 +84,8 @@ namespace Shooping.Helpers
 
         public async Task<SignInResult> LoginAsync(LoginViewModel model)
         {
-            return await _signInManager
-                .PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
+            return await _signInManager.PasswordSignInAsync(model.UserName, model.Password, 
+                model.RememberMe, false);
         }
 
         public async Task LogoutAsync()
