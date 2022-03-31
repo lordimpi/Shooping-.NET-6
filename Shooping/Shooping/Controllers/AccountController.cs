@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shooping.Data;
 using Shooping.Data.Entities;
@@ -105,7 +106,7 @@ namespace Shooping.Controllers
                     UserName = model.UserName
                 };
 
-                Microsoft.AspNetCore.Identity.SignInResult? result2 = await _userHelper.LoginAsync(loginViewModel);
+                Microsoft.AspNetCore.Identity.SignInResult result2 = await _userHelper.LoginAsync(loginViewModel);
 
                 if (result2.Succeeded)
                 {
@@ -140,7 +141,7 @@ namespace Shooping.Controllers
 
             return Json(state.Cities.OrderBy(c => c.Name));
         }
-        
+
         public async Task<IActionResult> ChangeUser()
         {
             User user = await _userHelper.GetUserAsync(User.Identity.Name);
@@ -175,14 +176,14 @@ namespace Shooping.Controllers
             if (ModelState.IsValid)
             {
                 Guid imageId = model.ImageId;
-                
+
                 if (model.ImageFile != null)
                 {
                     imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "users");
                 }
 
                 User user = await _userHelper.GetUserAsync(User.Identity.Name);
-                
+
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
                 user.Address = model.Address;
@@ -192,12 +193,52 @@ namespace Shooping.Controllers
                 user.Document = model.Document;
 
                 await _userHelper.UpdateUserAsync(user);
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
             model.Countries = await _combosHelper.GetComboCountriesAsync();
             model.States = await _combosHelper.GetComboStatesAsync(model.StateId);
             model.Cities = await _combosHelper.GetComboCitiesAsync(model.CityId);
             return View(model);
         }
+
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.OldPassword == model.NewPassword)
+                {
+                    ModelState.AddModelError(string.Empty, "La nueva contraseña debe ser distinta a la antigua.");
+                    return View(model);
+                }
+
+                User user = await _userHelper.GetUserAsync(User.Identity.Name);
+                if (user != null)
+                {
+                    IdentityResult result = await _userHelper
+                        .ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("ChangeUser");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, result.Errors.FirstOrDefault().Description);
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Usuario no encontrado.");
+                }
+            }
+            return View(model);
+        }
+
     }
 }

@@ -4,7 +4,7 @@ using Shooping.Data;
 using Shooping.Data.Entities;
 using Shooping.Helpers;
 
-WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -34,16 +34,16 @@ builder.Services.AddDbContext<DataContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("SQL"));
 });
 
-WebApplication? app = builder.Build();
+WebApplication app = builder.Build();
 SeedData(app);
 
 void SeedData(WebApplication app)
 {
-    IServiceScopeFactory? scopedFactory = app.Services.GetService<IServiceScopeFactory>();
+    IServiceScopeFactory scopedFactory = app.Services.GetService<IServiceScopeFactory>();
 
-    using (IServiceScope? scope = scopedFactory.CreateScope())
+    using (IServiceScope scope = scopedFactory.CreateScope())
     {
-        SeedDb? service = scope.ServiceProvider.GetService<SeedDb>();
+        SeedDb service = scope.ServiceProvider.GetService<SeedDb>();
         service.SeedAsync().Wait();
     }
 }

@@ -82,9 +82,9 @@ namespace Shooping.Controllers
             return View(model);
         }
 
-        public JsonResult? GetStates(int countryId)
+        public JsonResult GetStates(int countryId)
         {
-            Country? country = _context.Countries
+            Country country = _context.Countries
                 .Include(c => c.States)
                 .FirstOrDefault(c => c.Id == countryId);
             if (country == null)
@@ -94,9 +94,9 @@ namespace Shooping.Controllers
             return Json(country.States.OrderBy(c => c.Name));
         }
 
-        public JsonResult? GetCities(int stateId)
+        public JsonResult GetCities(int stateId)
         {
-            State? state = _context.States
+            State state = _context.States
                 .Include(s => s.Cities)
                 .FirstOrDefault(s => s.Id == stateId);
             if (state == null)

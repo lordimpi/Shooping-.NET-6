@@ -34,7 +34,7 @@ namespace Shooping.Controllers
                 return NotFound();
             }
 
-            Country? country = await _context.Countries
+            Country country = await _context.Countries
                 .Include(c => c.States)
                 .ThenInclude(s => s.Cities)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -90,7 +90,7 @@ namespace Shooping.Controllers
                 return NotFound();
             }
 
-            Country? country = await _context.Countries
+            Country country = await _context.Countries
                 .Include(c => c.States)
                 .FirstOrDefaultAsync(c => c.Id == id);
             if (country == null)
@@ -143,7 +143,7 @@ namespace Shooping.Controllers
                 return NotFound();
             }
 
-            Country? country = await _context.Countries
+            Country country = await _context.Countries
                 .Include(c => c.States)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (country == null)
@@ -158,7 +158,7 @@ namespace Shooping.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            Country? country = await _context.Countries.FindAsync(id);
+            Country country = await _context.Countries.FindAsync(id);
             _context.Countries.Remove(country);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -233,7 +233,7 @@ namespace Shooping.Controllers
                 return NotFound();
             }
 
-            State? state = await _context.States
+            State state = await _context.States
                 .Include(st => st.Country)
                 .FirstOrDefaultAsync(s => s.Id == id);
 
@@ -302,7 +302,7 @@ namespace Shooping.Controllers
                 return NotFound();
             }
 
-            State? states = await _context.States
+            State states = await _context.States
                 .Include(s => s.Country)
                 .Include(s => s.Cities)
                 .FirstOrDefaultAsync(s => s.Id == id);
@@ -321,7 +321,7 @@ namespace Shooping.Controllers
                 return NotFound();
             }
 
-            State? state = await _context.States
+            State state = await _context.States
                 .Include(s => s.Country)
                 .FirstOrDefaultAsync(s => s.Id == id);
             if (state == null)
@@ -336,7 +336,7 @@ namespace Shooping.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteStateConfirmed(int id)
         {
-            State? state = await _context.States
+            State state = await _context.States
                 .Include(s => s.Country)
                 .FirstOrDefaultAsync(s => s.Id == id);
             _context.States.Remove(state);
@@ -411,7 +411,7 @@ namespace Shooping.Controllers
                 return NotFound();
             }
 
-            City? city = await _context.Cities
+            City city = await _context.Cities
                 .Include(c => c.State)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
@@ -498,7 +498,7 @@ namespace Shooping.Controllers
                 return NotFound();
             }
 
-            City? city = await _context.Cities
+            City city = await _context.Cities
                 .Include(c => c.State)
                 .FirstOrDefaultAsync(c => c.Id == id);
             if (city == null)
@@ -513,7 +513,7 @@ namespace Shooping.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteCityConfirmed(int id)
         {
-            City? city = await _context.Cities
+            City city = await _context.Cities
                 .Include(c => c.State)
                 .FirstOrDefaultAsync(c => c.Id == id);
             _context.Cities.Remove(city);

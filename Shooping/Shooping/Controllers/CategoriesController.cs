@@ -29,7 +29,7 @@ namespace Shooping.Controllers
             {
                 return NotFound();
             }
-            Category? category = await _context.Categories.
+            Category category = await _context.Categories.
                 FirstOrDefaultAsync(c => c.Id == id);
             if (category == null)
             {
@@ -81,7 +81,7 @@ namespace Shooping.Controllers
             {
                 return NotFound();
             }
-            Category? category = await _context.Categories
+            Category category = await _context.Categories
                 .FirstOrDefaultAsync(c => c.Id == id);
             if (category == null)
             {
@@ -132,7 +132,7 @@ namespace Shooping.Controllers
             {
                 return NotFound();
             }
-            Category? category = await _context.Categories
+            Category category = await _context.Categories
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             if (category == null)
@@ -147,7 +147,7 @@ namespace Shooping.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int? id)
         {
-            Category? category = await _context.Categories.FindAsync(id);
+            Category category = await _context.Categories.FindAsync(id);
             _context.Categories.Remove(category);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
