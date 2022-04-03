@@ -46,7 +46,16 @@ namespace Shooping.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
-                ModelState.AddModelError(string.Empty, "Email o contraseña incorrectos.");
+                if (result.IsLockedOut)
+                {
+                    ModelState.AddModelError(string.Empty, "Ha superado el máximo número de intentos, su cuenta " +
+                        "esta bloqueada, intente en 5 minutos.");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Email o contraseñas inconrrectos.");
+                }
+
             }
 
             return View(model);
