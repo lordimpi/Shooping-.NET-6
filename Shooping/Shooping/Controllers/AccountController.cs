@@ -289,5 +289,10 @@ namespace Shooping.Controllers
             return View(model);
         }
 
+        public IActionResult RecoverPassword()
+        {
+            return View();
+        }
+
     }
 }

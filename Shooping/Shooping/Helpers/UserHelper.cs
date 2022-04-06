@@ -86,6 +86,11 @@ namespace Shooping.Helpers
             return await _userManager.GenerateEmailConfirmationTokenAsync(user);
         }
 
+        public async Task<string> GeneratePasswordResetToken(User user)
+        {
+            return await _userManager.GeneratePasswordResetTokenAsync(user);
+        }
+
         public async Task<User> GetUserAsync(string email)
         {
             return await _context.Users
@@ -118,6 +123,11 @@ namespace Shooping.Helpers
         public async Task LogoutAsync()
         {
             await _signInManager.SignOutAsync();
+        }
+
+        public async Task<IdentityResult> ResetPasswordAsync(User user, string token, string password)
+        {
+            return await _userManager.ResetPasswordAsync(user, token, password);
         }
 
         public Task<IdentityResult> UpdateUserAsync(User user)
