@@ -86,7 +86,7 @@ namespace Shooping.Helpers
             return await _userManager.GenerateEmailConfirmationTokenAsync(user);
         }
 
-        public async Task<string> GeneratePasswordResetToken(User user)
+        public async Task<string> GeneratePasswordResetTokenAsync(User user)
         {
             return await _userManager.GeneratePasswordResetTokenAsync(user);
         }
