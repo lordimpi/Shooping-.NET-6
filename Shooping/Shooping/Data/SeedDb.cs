@@ -80,6 +80,18 @@ namespace Shooping.Data
                     {
                         new State()
                         {
+                            Name ="Cauca",
+                            Cities = new List<City>()
+                            {
+                                new City() { Name = "Popayán" },
+                                new City() { Name = "Piendamó" },
+                                new City() { Name = "Santander de Quilichao" },
+                                new City() { Name = "Timbío" },
+                                new City() { Name = "El Tambo" },
+                            }
+                        },
+                        new State()
+                        {
                             Name = "Antioquia",
                             Cities = new List<City>() {
                                 new City() { Name = "Medellín" },
