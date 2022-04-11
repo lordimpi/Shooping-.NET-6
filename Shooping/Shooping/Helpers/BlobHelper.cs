@@ -16,9 +16,13 @@ namespace Shooping.Helpers
 
         public async Task DeleteBlobAsync(Guid id, string containerName)
         {
-            CloudBlobContainer container = _blobClient.GetContainerReference(containerName);
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference(containerName);
-            await blockBlob.DeleteAsync();
+            try
+            {
+                CloudBlobContainer container = _blobClient.GetContainerReference(containerName);
+                CloudBlockBlob blockBlob = container.GetBlockBlobReference(containerName);
+                await blockBlob.DeleteAsync();
+            }
+            catch { }
         }
 
         public async Task<Guid> UploadBlobAsync(string image, string containerName)

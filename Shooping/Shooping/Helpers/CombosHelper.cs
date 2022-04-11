@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Shooping.Data;
+using Shooping.Data.Entities;
 
 namespace Shooping.Helpers
 {
@@ -27,6 +28,30 @@ namespace Shooping.Helpers
             return categories;
         }
 
+        public async Task<IEnumerable<SelectListItem>> GetComboCategoriesAsync(IEnumerable<Category> filter)
+        {
+            List<Category> categories = await _context.Categories.ToListAsync();
+            List<Category> categoriesFiltered = new();
+            foreach (Category category in categories)
+            {
+                if (!filter.Any(c => c.Id == category.Id))
+                {
+                    categoriesFiltered.Add(category);
+                }
+            }
+
+            List<SelectListItem> list = categoriesFiltered.Select(c => new SelectListItem
+            {
+                Text = c.Name,
+                Value = c.Id.ToString()
+            })
+                .OrderBy(c => c.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem { Text = "[Seleccione una categoría...", Value = "0" });
+            return list;
+        }
+
         public async Task<IEnumerable<SelectListItem>> GetComboCitiesAsync(int stateId)
         {
             List<SelectListItem> cities = await _context.Cities
@@ -38,7 +63,7 @@ namespace Shooping.Helpers
                 })
                 .OrderBy(c => c.Text)
                 .ToListAsync();
-            cities.Insert(0, new SelectListItem { Text ="[Seleccione una ciudad...]",Value = "0"});
+            cities.Insert(0, new SelectListItem { Text = "[Seleccione una ciudad...]", Value = "0" });
             return cities;
         }
 
@@ -52,7 +77,7 @@ namespace Shooping.Helpers
                 })
                 .OrderBy(c => c.Text)
                 .ToListAsync();
-            countries.Insert(0, new SelectListItem { Text="[Seleccione un país...]", Value="0"});
+            countries.Insert(0, new SelectListItem { Text = "[Seleccione un país...]", Value = "0" });
             return countries;
         }
 
@@ -67,7 +92,7 @@ namespace Shooping.Helpers
                 })
                 .OrderBy(s => s.Text)
                 .ToListAsync();
-            states.Insert(0,new SelectListItem { Text ="[Seleccione un departamento/estado...]",Value="0"});
+            states.Insert(0, new SelectListItem { Text = "[Seleccione un departamento/estado...]", Value = "0" });
             return states;
         }
     }
