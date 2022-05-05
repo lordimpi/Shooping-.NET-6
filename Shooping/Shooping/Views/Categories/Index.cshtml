@@ -4,8 +4,6 @@
     ViewData["Title"] = "Index";
 }
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
-
 <p>
     <a asp-action="Create" class="btn btn-primary "><i class="fa-solid fa-circle-plus"></i> Crear Nuevo</a>
 </p>
@@ -57,7 +55,7 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    
 
     <script type="text/javascript">
         $(document).ready(function () {
