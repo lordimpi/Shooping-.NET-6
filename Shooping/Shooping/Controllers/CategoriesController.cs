@@ -29,23 +29,6 @@ namespace Shooping.Controllers
                 .ToListAsync());
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            Category category = await _context.Categories.
-                FirstOrDefaultAsync(c => c.Id == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            return View(category);
-        }
-
         [NoDirectAccess]
         public async Task<IActionResult> Delete(int? id)
         {
