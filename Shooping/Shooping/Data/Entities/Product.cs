@@ -39,9 +39,9 @@ namespace Shooping.Data.Entities
         public int ImagesNumber => ProductImages == null ? 0 : ProductImages.Count;
 
         [Display(Name = "Foto")]
-        //TODO: Pending to change the correct path
         public string ImageFullPath => ProductImages == null || ProductImages.Count == 0
-            ? $"https://localhost:44357/images/noimage.png"
+            //? $"https://localhost:44357/images/noimage.png"
+            ? $"https://impistoreshop.azurewebsites.net/images/noimage.png"
             : ProductImages.FirstOrDefault().ImageFullPath;
 
         public ICollection<SaleDetail> SaleDetails { get; set; }

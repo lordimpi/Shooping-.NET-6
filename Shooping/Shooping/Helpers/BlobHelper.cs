@@ -9,7 +9,7 @@ namespace Shooping.Helpers
 
         public BlobHelper(IConfiguration configuration)
         {
-            string key = configuration["Blob:BlobString"];
+            string key = configuration["Blob:ConnectionStrings"];
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(key);
             _blobClient = storageAccount.CreateCloudBlobClient();
         }

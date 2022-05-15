@@ -4,6 +4,7 @@ using Shooping.Data;
 using Shooping.Data.Entities;
 using Shooping.Helpers;
 using Vereyon.Web;
+using Microsoft.Extensions.Azure;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
